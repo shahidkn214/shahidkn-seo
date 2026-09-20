@@ -1,4 +1,4 @@
-﻿type HeroProps = {
+type HeroProps = {
   kicker?: string;
   headline?: string;
   subtext?: string;
@@ -7,16 +7,16 @@
 
 export function Hero({ kicker, headline, subtext }: HeroProps) {
   return (
-    <section className="border-b border-border">
+    <section className="border-b border-border dark:border-neutral-800 bg-background dark:bg-[#0a0a0a]">
       <div className="flex flex-col items-center justify-center text-center max-w-2xl mx-auto py-12 px-4">
         {/* Blank Centered Spatial Placeholder Container */}
         <div
           aria-hidden="true"
-          className="rounded-full mx-auto mb-6 w-36 h-36 md:w-44 md:h-44 border-4 border-dashed border-border bg-card/40 flex items-center justify-center"
+          className="rounded-full mx-auto mb-6 w-36 h-36 md:w-44 md:h-44 border-4 border-dashed border-border dark:border-neutral-800 bg-card/40 dark:bg-neutral-900/40 flex items-center justify-center"
         />
 
         {/* Centered Identity & Name */}
-        <h1 className="text-center font-serif text-3xl sm:text-5xl font-bold tracking-tight text-text mb-2">
+        <h1 className="text-center font-serif text-3xl sm:text-5xl font-bold tracking-tight text-text dark:text-white mb-2">
           Shahid KN
         </h1>
 
@@ -26,7 +26,7 @@ export function Hero({ kicker, headline, subtext }: HeroProps) {
         </p>
 
         {/* Core Introductory Bio */}
-        <p className="text-text-dim text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto">
+        <p className="text-text-dim dark:text-gray-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl mx-auto">
           {subtext ||
             "I take rough, AI-generated drafts on software and AI tools — fact-check claims, fix keyword stuffing, restructure for readability, and deliver publish-ready copy that ranks and reads naturally."}
         </p>
@@ -41,7 +41,7 @@ export function Hero({ kicker, headline, subtext }: HeroProps) {
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center px-6 py-3 border border-border text-text font-medium rounded-md hover:bg-card transition-colors"
+            className="inline-flex items-center px-6 py-3 border border-border dark:border-neutral-800 text-text dark:text-white font-medium rounded-md hover:bg-card dark:hover:bg-neutral-800 transition-colors"
           >
             Get in touch
           </a>

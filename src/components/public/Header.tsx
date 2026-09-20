@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -8,13 +8,13 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-[#111111]/80 border-b border-border w-full relative transition-colors">
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 dark:bg-[#111111]/80 border-b border-border dark:border-neutral-800 w-full relative transition-colors">
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="font-serif text-lg font-bold text-text tracking-tight hover:text-red transition-colors"
+            className="font-serif text-lg font-bold text-text dark:text-white tracking-tight hover:text-red transition-colors"
           >
             Nexversal Portfolio
           </Link>
@@ -25,20 +25,20 @@ export function Header() {
 
         {/* Desktop Nav & Controls */}
         <div className="flex items-center gap-4 sm:gap-6">
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-text-dim">
-            <a href="#" className="hover:text-text transition-colors">
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-text-dim dark:text-gray-400">
+            <a href="#" className="hover:text-text dark:hover:text-white transition-colors">
               Home
             </a>
-            <a href="#portfolio" className="hover:text-text transition-colors">
+            <a href="#portfolio" className="hover:text-text dark:hover:text-white transition-colors">
               Portfolio
             </a>
             <a
               href="#technical-seo"
-              className="hover:text-text transition-colors"
+              className="hover:text-text dark:hover:text-white transition-colors"
             >
               Technical SEO
             </a>
-            <a href="#contact" className="hover:text-text transition-colors">
+            <a href="#contact" className="hover:text-text dark:hover:text-white transition-colors">
               Contact
             </a>
           </nav>

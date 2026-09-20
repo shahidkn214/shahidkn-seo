@@ -1,10 +1,30 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
 
-  /* Dark mode (default) */
+  /* Dark mode (default tokens) */
+  --color-bg: #10121a;
+  --color-background: #10121a;
+  --color-bg-alt: #14161f;
+  --color-card: #181b26;
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-text: #eef0f5;
+  --color-text-dim: #9aa0b4;
+  --color-red: #e35b4f;
+  --color-amber: #dba545;
+  --color-emerald: #34d399;
+
+  --color-input-bg: #1e2130;
+  --color-input-border: rgba(255, 255, 255, 0.12);
+}
+
+/* Explicit Dark Mode */
+.dark,
+[data-theme="dark"] {
   --color-bg: #10121a;
   --color-background: #10121a;
   --color-bg-alt: #14161f;
@@ -23,6 +43,7 @@
 /* Light mode overrides */
 [data-theme="light"] {
   --color-bg: #f7f6f2;
+  --color-background: #f7f6f2;
   --color-bg-alt: #eeedea;
   --color-card: #ffffff;
   --color-border: rgba(0, 0, 0, 0.1);
@@ -30,6 +51,7 @@
   --color-text-dim: #5a5e6e;
   --color-red: #c8392e;
   --color-amber: #b8862e;
+  --color-emerald: #059669;
 
   --color-input-bg: #ffffff;
   --color-input-border: rgba(0, 0, 0, 0.15);
@@ -39,6 +61,7 @@
 @media (prefers-color-scheme: light) {
   [data-theme="system"] {
     --color-bg: #f7f6f2;
+    --color-background: #f7f6f2;
     --color-bg-alt: #eeedea;
     --color-card: #ffffff;
     --color-border: rgba(0, 0, 0, 0.1);
@@ -46,6 +69,7 @@
     --color-text-dim: #5a5e6e;
     --color-red: #c8392e;
     --color-amber: #b8862e;
+    --color-emerald: #059669;
 
     --color-input-bg: #ffffff;
     --color-input-border: rgba(0, 0, 0, 0.15);
