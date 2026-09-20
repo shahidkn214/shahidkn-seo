@@ -875,9 +875,8 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
 
           {/* Bottom Copyright Bar Stamp */}
           <div className="border-t border-border/40 dark:border-neutral-800 my-8 w-full" />
-          <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-text-dim dark:text-gray-400 gap-4">
-            <span>© 2026 Shahid KN. All rights reserved.</span>
-            <span>Built with Next.js, Tailwind CSS &amp; Antigravity.</span>
+          <div className="w-full text-center text-xs text-text-dim/80 dark:text-gray-400 py-2">
+            © 2026 Shahid KN. All rights reserved.
           </div>
         </div>
       </footer>
