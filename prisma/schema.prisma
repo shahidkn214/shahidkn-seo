@@ -61,3 +61,13 @@ model SiteSettings {
   metaTitle       String
   metaDescription String
 }
+
+model AuditRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  website   String
+  message   String
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}

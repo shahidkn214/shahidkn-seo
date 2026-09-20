@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { submitAuditRequest } from "@/app/actions/audit";
 
 export type ProjectData = {
   id?: string;
@@ -353,10 +354,25 @@ function getBadgeStyle(tag: string) {
 
 export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleAuditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAuditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const result = await submitAuditRequest(formData);
+
+    setIsSubmitting(false);
+    if (result.success) {
+      setFormSubmitted(true);
+      form.reset();
+    } else {
+      setSubmitError(result.error || "Failed to submit audit request. Please try again.");
+    }
   };
 
   return (
@@ -717,7 +733,10 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
               </p>
               <button
                 type="button"
-                onClick={() => setFormSubmitted(false)}
+                onClick={() => {
+                  setFormSubmitted(false);
+                  setSubmitError(null);
+                }}
                 className="px-5 py-2.5 rounded-lg bg-bg-alt dark:bg-neutral-800 border border-border dark:border-neutral-700 text-xs font-medium text-text dark:text-white hover:bg-card dark:hover:bg-neutral-700 transition-colors cursor-pointer"
               >
                 Submit Another Domain
@@ -728,6 +747,13 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
               onSubmit={handleAuditSubmit}
               className="max-w-xl mx-auto flex flex-col gap-4 px-4 sm:px-0"
             >
+              {/* Error Alert */}
+              {submitError && (
+                <div className="p-3.5 rounded-xl bg-red/10 border border-red/20 text-red text-xs sm:text-sm font-medium">
+                  {submitError}
+                </div>
+              )}
+
               {/* Name */}
               <div>
                 <input
@@ -735,7 +761,8 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
                   name="name"
                   placeholder="Your Name"
                   required
-                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full transition-colors"
+                  disabled={isSubmitting}
+                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -746,7 +773,8 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
                   name="email"
                   placeholder="your.email@domain.com"
                   required
-                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full transition-colors"
+                  disabled={isSubmitting}
+                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -757,7 +785,8 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
                   name="website"
                   placeholder="https://yourwebsite.com"
                   required
-                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full transition-colors"
+                  disabled={isSubmitting}
+                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -768,7 +797,8 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
                   rows={4}
                   placeholder="Tell me about your current organic search drops or content automation challenges..."
                   required
-                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full resize-y transition-colors"
+                  disabled={isSubmitting}
+                  className="bg-card dark:bg-[#1c1c1c] text-text dark:text-white border border-border dark:border-neutral-800 placeholder:text-text-dim/60 dark:placeholder:text-gray-500 rounded-xl p-3.5 text-sm focus:outline-none focus:border-red/40 w-full resize-y transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -776,9 +806,36 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-text dark:bg-white text-background dark:text-black font-medium py-3.5 rounded-xl hover:opacity-90 transition-opacity shadow-sm text-sm cursor-pointer"
+                  disabled={isSubmitting}
+                  className="w-full bg-text dark:bg-white text-background dark:text-black font-medium py-3.5 rounded-xl hover:opacity-90 transition-opacity shadow-sm text-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Submit Audit Request ↗
+                  {isSubmitting ? (
+                    <>
+                      <svg
+                        className="animate-spin h-4 w-4 text-background dark:text-black"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      <span>Submitting Audit Request...</span>
+                    </>
+                  ) : (
+                    "Submit Audit Request ↗"
+                  )}
                 </button>
               </div>
             </form>

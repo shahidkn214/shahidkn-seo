@@ -22,7 +22,7 @@ export function Hero({ kicker, headline, subtext }: HeroProps) {
 
         {/* Designation */}
         <p className="text-red text-sm sm:text-base font-semibold uppercase tracking-wider mb-4">
-          SEO Specialist &amp; Technical Content Editor
+          {kicker || "SEO Specialist & Technical Content Editor"}
         </p>
 
         {/* Core Introductory Bio */}
