@@ -330,6 +330,12 @@ const TECHNICAL_SEO_CAPABILITIES = [
     description:
       "IndexNow protocol pipelines, edge CDN caching headers, real-time render-tree validation, and continuous log-file bot traversal analysis.",
   },
+  {
+    title: "High-Authority Guest Posting & Outreach",
+    tag: "Contextual Link Equity",
+    description:
+      "Securing premium contextual backlinks through calculated publisher relationships to build clean domain authority and scale organic keyword ranks safely.",
+  },
 ];
 
 function getBadgeStyle(tag: string) {
@@ -649,7 +655,7 @@ export function PortfolioGrid({ projects }: { projects?: ProjectData[] }) {
               {TECHNICAL_SEO_CAPABILITIES.map((cap) => (
                 <div
                   key={cap.title}
-                  className="p-5 sm:p-6 bg-card border border-border rounded-xl flex flex-col justify-between hover:border-red/30 transition-colors"
+                  className="p-5 sm:p-6 bg-card border border-border rounded-xl flex flex-col justify-between hover:border-red/30 transition-colors last:sm:col-span-2"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
